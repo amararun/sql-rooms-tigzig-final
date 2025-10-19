@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Select-String -Pattern \"mobile|isMobile|device\")",
+      "Bash(Select-Object -First 10)",
+      "Bash(git add docs/APP_ARCHITECTURE.md)",
+      "Bash(git commit -m \"docs: add Single-File Customization System section\n\nAdded comprehensive documentation for single-file build customizations:\n\n- Environment detection implementation (window.location.protocol)\n- Model filtering for local file vs server environments\n- Complete build & deployment workflow (4-step process)\n- Git configuration explanation (dist/ vs dist-single/)\n- Technical details (default model, baseURL configuration)\n- Current customizations status table\n- Planned features (download banner hiding)\n- Testing checklist for deployment verification\n\nIncludes detailed explanation of why default model is configured\nin three places to ensure consistent behavior across all environments.\")",
+      "Bash(git push origin main)",
+      "Bash(npm run build:single-file)",
+      "Bash(npm run build)",
+      "Bash(git add -A)"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "spinnerTipsEnabled": false
+}

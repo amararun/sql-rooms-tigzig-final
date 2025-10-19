@@ -1,0 +1,645 @@
+@import '@sqlrooms/ui/tailwind-preset.css';
+
+/* Override primary color - make it bright blue/indigo instead of dark gray */
+:root {
+  --primary: 239 84% 67%; /* Bright indigo-500 color */
+  --primary-foreground: 0 0% 100%; /* White text on primary background */
+}
+
+.dark {
+  --primary: 239 84% 67%; /* Same bright indigo for dark mode */
+  --primary-foreground: 0 0% 100%; /* White text */
+}
+
+/* Text wrapping fixes */
+body {
+  font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* Force all text elements to wrap */
+.react-mosaic-window-body p,
+.react-mosaic-window-body li,
+.react-mosaic-window-body div:not([class*="table"]):not([class*="flex"]),
+.react-mosaic-window-body span {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  max-width: 100% !important;
+  white-space: normal !important;
+}
+
+/* Text wrapping rules - target text elements specifically */
+p, li, div, span, h1, h2, h3, h4, h5, h6 {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+}
+
+/* Allow truncate class to work - with higher specificity */
+span.truncate,
+.truncate,
+[class*="truncate"] {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
+}
+
+/* Force table name truncation specifically */
+span.text-sm.truncate {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+}
+
+/* Font improvements for better readability */
+/* Increase font size and weight for better readability */
+p, li, div, span:not(.truncate) {
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  /* Removed global color override to let components use their natural colors */
+}
+
+/* Chat/Conversation area text - make it darker and more visible */
+/* Target chat messages, analysis results, and conversation content */
+.react-mosaic-window-body p,
+.react-mosaic-window-body li,
+.react-mosaic-window-body div:not([class*="table"]):not([class*="flex"]):not([class*="button"]),
+[data-testid="analysis-results"] p,
+[data-testid="analysis-results"] li,
+[data-testid="analysis-results"] div,
+.prose p,
+.prose li,
+.prose div {
+  color: #475569 !important; /* slate-600 - lighter than slate-700 for better readability */
+  font-weight: 400 !important; /* Slightly heavier for better readability */
+}
+
+/* Darken explanation text in analysis results - override text-gray-500 to text-gray-700 */
+[data-testid="analysis-results"] .text-gray-500,
+.prose .text-gray-500 {
+  color: #374151 !important; /* gray-700 - darker than default text-gray-500 */
+}
+
+/* Darken helper text in other areas (like Data Sources panel) */
+.text-gray-500:not(header *):not(.app-header *) {
+  color: #475569 !important; /* slate-600 - darker gray for better readability */
+}
+
+/* Table text improvements */
+table, table td, table th {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: #1e293b !important; /* slate-800 - darker for better readability */
+}
+
+/* Headers should be even stronger - but exclude header element */
+h1:not(header h1), h2:not(header h2), h3:not(header h3), h4:not(header h4), h5:not(header h5), h6:not(header h6) {
+  font-weight: 600 !important;
+  color: #1e293b !important; /* slate-800 - slightly lighter than slate-900 for better readability */
+}
+
+/* Strong/Bold text in analysis results - match header color */
+[data-testid="analysis-results"] strong,
+[data-testid="analysis-results"] b,
+.prose strong,
+.prose b {
+  color: #1e293b !important; /* slate-800 - match headers for consistency */
+  font-weight: 600 !important;
+}
+
+/* Header text - removed global override to allow inline styles */
+.app-header-title {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.app-header-left {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+}
+
+.app-header-description {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 1.05rem !important;
+  font-weight: 400 !important;
+}
+
+.app-header-credits {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
+}
+
+.app-header-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+  text-decoration: underline !important;
+}
+
+/* Code blocks should be readable but not too heavy */
+pre, code {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  /* Removed global color override to let components use their natural colors */
+}
+
+/* Button text color fixes - TARGETED for specific button types */
+
+/* Quick prompt buttons - indigo blue color to stand out like links */
+button[class*="rounded-full"][class*="outline"] span,
+button[class*="rounded-full"][class*="outline"] {
+  color: hsl(239 84% 67%) !important; /* Indigo-500 - same as primary */
+  font-weight: 500 !important;
+}
+
+/* Alternative selector for quick prompts if above doesn't work */
+.flex.gap-2 button[class*="rounded-full"] span,
+.flex.gap-2 button[class*="rounded-full"] {
+  color: hsl(239 84% 67%) !important;
+  font-weight: 500 !important;
+}
+
+/* Left panel outline buttons (Data Sources) - darker gray for better visibility */
+/* FIXED - Target the BUTTON ITSELF, not just spans/svgs inside it */
+
+/* Target ALL Data Sources panel buttons - export section AND top buttons */
+div.p-3.border-t.border-gray-200.space-y-2 button,
+div.border-t.space-y-2 button,
+div.p-4.space-y-3 button,
+button.inline-flex[class*="w-full"][class*="justify-center"],
+button[class*="items-center"][class*="justify-center"][class*="w-full"],
+button[class*="flex-1"][class*="justify-center"],
+button.px-2 {
+  color: #334155 !important; /* slate-700 - darker gray for button text */
+  font-size: 0.875rem !important; /* text-sm - consistent size */
+  font-weight: 500 !important;
+}
+
+/* Also target any spans and svgs inside these buttons */
+div.p-3.border-t.border-gray-200.space-y-2 button span,
+div.p-3.border-t.border-gray-200.space-y-2 button svg,
+div.border-t.space-y-2 button span,
+div.border-t.space-y-2 button svg,
+div.p-4.space-y-3 button span,
+div.p-4.space-y-3 button svg,
+button.inline-flex[class*="w-full"][class*="justify-center"] span,
+button.inline-flex[class*="w-full"][class*="justify-center"] svg,
+button[class*="items-center"][class*="justify-center"][class*="w-full"] span,
+button[class*="items-center"][class*="justify-center"][class*="w-full"] svg,
+button[class*="flex-1"][class*="justify-center"] span,
+button[class*="flex-1"][class*="justify-center"] svg,
+button.px-2 svg {
+  color: #334155 !important; /* slate-700 - darker gray */
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+}
+
+/* Top menu buttons - consistent light gray (but exclude primary buttons) */
+button[class*="gap-1"]:not([class*="bg-primary"]) span,
+button[class*="gap-1"]:not([class*="bg-primary"]) {
+  color: #334155 !important; /* slate-700 - darker to match other buttons */
+  font-size: 0.875rem !important; /* text-sm */
+}
+
+/* Database button selected state - white icon */
+button[class*="bg-primary"] svg,
+button[class*="variant-default"] svg {
+  color: white !important;
+}
+
+/* Model selector dropdown - darker text for consistency */
+[role="option"],
+[role="option"] span,
+div[class*="select"] [role="option"],
+div[class*="Command"] [role="option"] {
+  color: #334155 !important; /* slate-700 - darker for better consistency */
+}
+
+/* Session name display - darker gray for better visibility */
+input[value*=":"],
+input[value*="at"],
+.text-sm.font-medium,
+span.text-sm.font-medium {
+  color: #334155 !important; /* slate-700 - darker for better contrast */
+}
+
+/* Data Sources panel header - moderate font size and darker color */
+h2.text-muted-foreground.text-xs.font-semibold.uppercase,
+h2.text-muted-foreground,
+[class*="panel"] h2,
+.react-mosaic-window-title {
+  font-size: 0.9rem !important; /* 14.4px - moderate size between original and too large */
+  font-weight: 600 !important;
+  letter-spacing: 0.025em !important;
+  color: #334155 !important; /* slate-700 - darker gray for better visibility */
+}
+
+/* Session history dropdown items - darker gray text for consistency */
+[role="menuitem"],
+[role="menuitem"] span,
+[class*="DropdownMenuItem"],
+[class*="DropdownMenuItem"] span,
+div[class*="dropdown"] span,
+div[class*="DropdownMenuContent"] span,
+div[class*="DropdownMenuContent"] [role="menuitem"],
+div[class*="DropdownMenuContent"] [role="menuitem"] span,
+button[role="menuitem"],
+button[role="menuitem"] span {
+  color: #334155 !important; /* slate-700 - darker for better consistency */
+}
+
+/* New Session button in dropdown - darker text */
+[role="menu"] button,
+[role="menu"] button span,
+div[class*="DropdownMenuContent"] button,
+div[class*="DropdownMenuContent"] button span {
+  color: #334155 !important; /* slate-700 - darker for better consistency */
+}
+
+/* File info text in Data Sources panel - larger font */
+[class*="text-[10px]"],
+div[class*="text-[10px]"],
+.text-xs {
+  font-size: 13px !important; /* Increase from 10px to 13px */
+  line-height: 1.5 !important;
+}
+
+/* Session name text box in top menu - slate-700 */
+input[placeholder*="session"],
+input[placeholder*="Session"],
+textarea[placeholder*="session"],
+textarea[placeholder*="Session"],
+.session-name-input,
+.session-name-textarea {
+  color: #334155 !important; /* slate-700 for session name text */
+}
+
+/* Top menu text elements - slate-700 */
+.top-menu input,
+.top-menu textarea,
+.top-menu span,
+.top-menu div {
+  color: #334155 !important; /* slate-700 for top menu text */
+}
+
+  /* Footer specific styles - override global rules with higher specificity */
+  footer span,
+  footer a,
+  footer div {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    color: #4338ca !important;
+  }
+
+  /* App Footer specific overrides - higher specificity */
+  footer .app-footer-left span,
+  footer .app-footer-left a {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+  }
+
+  footer .app-footer-left span:not(.app-footer-link) {
+    color: #475569 !important;
+  }
+
+  footer .app-footer-left a,
+  footer .app-footer-right a {
+    color: #4f46e5 !important;
+  }
+
+  /* Ensure proper alignment - responsive */
+  footer .app-footer-left {
+    flex: 1;
+  }
+
+  /* Desktop: left align first section */
+  @media (min-width: 768px) {
+    footer .app-footer-left {
+      text-align: left;
+    }
+  }
+
+  /* Mobile: center first section */
+  @media (max-width: 767px) {
+    footer .app-footer-left {
+      text-align: center;
+    }
+  }
+
+  footer .app-footer-right {
+    flex: 0 0 auto;
+    text-align: right;
+  }
+
+  /* Data Sources Panel - reduce font size for file type information only */
+  .data-sources-file-info {
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #000000 !important; /* Pure black - to test if changes are taking effect */
+    line-height: 1.3 !important;
+  }
+
+  /* Table row count text - make it darker and more visible */
+  /* Target ALL text-xs spans to catch the row count */
+  .text-xs {
+    color: #1e293b !important; /* slate-800 - very dark for maximum visibility */
+    font-weight: 700 !important; /* bold */
+    opacity: 1 !important;
+  }
+
+/* Table width fixes - make tables size naturally */
+table {
+  width: max-content !important;
+  table-layout: auto !important;
+}
+
+/* Table containers should allow horizontal scrolling */
+.table-container,
+div:has(table) {
+  overflow-x: auto !important;
+  max-width: 100% !important;
+}
+
+#root {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100vh !important;
+  position: relative !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+/* Global text overflow prevention */
+* {
+  box-sizing: border-box !important;
+}
+
+body {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+/* Removed @layer base section to avoid conflicts */
+
+/* ROOT LEVEL VIEWPORT FIXES */
+
+/* Force RoomShell to respect viewport */
+.h-screen {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100vh !important;
+  overflow-x: hidden !important;
+}
+
+/* Force all main containers to respect viewport */
+div[class*="h-screen"],
+div[class*="h-full"][class*="w-full"] {
+  width: 100% !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+}
+
+/* Force mosaic layout to respect container */
+.react-mosaic-root {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+/* Minimal layout fixes only */
+
+/* Tailwind-based responsive fixes */
+@layer components {
+  /* Global text overflow prevention using Tailwind utilities */
+  .break-anywhere {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+
+/* Table horizontal scrolling fixes */
+  /* Ensure tables can scroll horizontally when content overflows */
+  .table-container {
+    overflow-x: auto;
+    overflow-y: visible;
+    max-width: 100%;
+  }
+  
+  /* Make sure tables don't get truncated */
+  table {
+    width: max-content;
+    table-layout: auto;
+  }
+  
+  /* Ensure table cells don't wrap unnecessarily */
+  th, td {
+    white-space: nowrap;
+    padding: 0.5rem;
+  }
+  
+  /* Allow text wrapping only when necessary */
+  th:last-child, td:last-child {
+    white-space: normal;
+    word-break: break-word;
+  }
+  
+  /* Responsive table wrapper */
+  .responsive-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) - 2px);
+  }
+  
+  /* Custom scrollbar styling for better UX */
+  .table-container::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .table-container::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 4px;
+  }
+  
+  .table-container::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground));
+    border-radius: 4px;
+  }
+  
+  .table-container::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--foreground));
+  }
+  
+  /* Target only the mosaic window content - allow table scrolling */
+  .react-mosaic-window-body {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* Fix content overflow in main panels - allow table scrolling */
+  .react-mosaic-window-body > * {
+    max-width: 100% !important;
+  }
+  
+  /* Specifically fix session controls layout - multiple selectors */
+  .react-mosaic-window-body .flex.justify-between,
+  .react-mosaic-window-body .flex.items-center.justify-between,
+  .flex.flex-wrap.items-center.justify-between,
+  div[class*="flex"][class*="justify-between"] {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    justify-content: flex-start !important;
+  }
+  
+  /* Force session actions to wrap */
+  .react-mosaic-window-body button,
+  .react-mosaic-window-body .flex button {
+    flex-shrink: 1 !important;
+    min-width: auto !important;
+  }
+  
+  /* Nuclear option - force ALL flex containers in mosaic windows to wrap */
+  .react-mosaic-window-body .flex,
+  .react-mosaic-window-body [class*="flex"] {
+    flex-wrap: wrap !important;
+    max-width: 100% !important;
+  }
+  
+  /* Specifically target justify-between layouts to use flex-start */
+  .react-mosaic-window-body [class*="justify-between"] {
+    justify-content: flex-start !important;
+    gap: 0.75rem !important;
+  }
+  
+  /* Make all buttons flexible */
+  .react-mosaic-window-body button {
+    flex-shrink: 1 !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Fix content overflow in analysis results */
+  [data-testid="analysis-results"],
+  .analysis-results {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* Fix chart and image overflow */
+  [data-testid="analysis-results"] img,
+  .analysis-results img,
+  [data-testid="analysis-results"] canvas,
+  .analysis-results canvas {
+    max-width: 100% !important;
+    height: auto !important;
+    width: auto !important;
+  }
+
+  /* Fix text wrapping in prose content */
+  .prose,
+  .prose p,
+  .prose li,
+  .prose div {
+    max-width: 100% !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    white-space: normal !important;
+  }
+
+  /* Fix text wrapping in specific analysis content elements */
+  [data-testid="analysis-results"] p,
+  [data-testid="analysis-results"] li,
+  [data-testid="analysis-results"] div,
+  [data-testid="analysis-results"] span,
+  .analysis-results p,
+  .analysis-results li,
+  .analysis-results div,
+  .analysis-results span {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+  }
+
+  /* Nuclear option - force ALL text elements to wrap */
+  .react-mosaic-window-body p,
+  .react-mosaic-window-body li,
+  .react-mosaic-window-body div:not([class*="table"]):not([class*="flex"]),
+  .react-mosaic-window-body span {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+  }
+
+
+  /* Global table fixes for SQLRooms components */
+  [data-testid="analysis-results"] table,
+  .analysis-results table,
+  .sql-query-results table {
+    width: max-content;
+    table-layout: auto;
+  }
+  
+  [data-testid="analysis-results"] .table-container,
+  .analysis-results .table-container,
+  .sql-query-results .table-container {
+    overflow-x: auto;
+    overflow-y: visible;
+    max-width: 100%;
+  }
+  
+  /* Target any div containing a table */
+  div:has(table) {
+    overflow-x: auto;
+    overflow-y: visible;
+    max-width: 100%;
+  }
+  
+  /* Ensure table cells don't get truncated */
+  div:has(table) table {
+    width: max-content;
+    table-layout: auto;
+  }
+  
+  div:has(table) th,
+  div:has(table) td {
+    white-space: nowrap;
+    padding: 0.5rem;
+    min-width: fit-content;
+  }
+  
+  /* Allow last column to wrap if needed */
+  div:has(table) th:last-child,
+  div:has(table) td:last-child {
+    white-space: normal;
+    word-break: break-word;
+    min-width: 120px;
+  }
+}
+
+/* Download Info Text - Bold styling - MUST be at end of file for highest priority */
+span.text-sm.download-info-text,
+p.download-info-text {
+  font-weight: 500 !important;
+  color: #073bb5 !important;
+  font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+}
