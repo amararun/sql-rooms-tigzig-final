@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add reference/connect-to-ms-access.md)",
+      "Bash(git commit -m \"docs: add comprehensive MS Access import guide\n\nCreated detailed documentation for importing MS Access data:\n\nOptions Covered:\n1. VBA → CSV Export (RECOMMENDED)\n   - Complete VBA script examples\n   - Export tables and queries\n   - Scheduled execution setup\n   - 30-minute implementation time\n\n2. Python → DuckDB Export\n   - Python script with pyodbc\n   - Single-file import\n   - Preserves data types\n   - 2-3 hour setup time\n\n3. SQLite Conversion (Experimental)\n   - Free conversion tools\n   - SQLite scanner extension\n   - Needs testing in DuckDB-Wasm\n\n4. Server API (Not Recommended)\n   - Why it''s overkill for this use case\n\nTechnical Details:\n- Network drive access limitations (browser security)\n- Current format support matrix\n- MS Access file format challenges (.mdb vs .accdb)\n- Data type mapping (Access → DuckDB)\n- Jet SQL → DuckDB SQL conversion notes\n- Query handling recommendations\n\nRecommendations:\n- Final recommendation: Option 1 (VBA → CSV)\n- Zero development needed\n- Works with existing features\n- Simple and reliable\n\nFuture Reference:\n- Comparison matrix for all approaches\n- Scheduled task setup guidance\n- Large database considerations\n- Potential future enhancements\n\nDocument serves as context for future AI sessions when\nrevisiting MS Access import requirements.\")",
+      "Bash(npm run build:single-file:*)",
+      "Bash(dir:*)",
+      "Bash(mkdir:*)",
+      "WebSearch",
+      "WebFetch(domain:duckdb.org)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(node:*)",
+      "Bash(where claude 2:*)",
+      "Bash(nul)",
+      "Bash(where:*)",
+      "Bash(claude mcp list:*)",
+      "mcp__chrome-devtools__list_pages",
+      "mcp__chrome-devtools__navigate_page",
+      "mcp__chrome-devtools__take_snapshot",
+      "mcp__chrome-devtools__click",
+      "mcp__chrome-devtools__evaluate_script",
+      "mcp__chrome-devtools__list_console_messages",
+      "Bash(cat:*)",
+      "Bash(npx patch-package:*)",
+      "Bash(del /s /q node_modules.vite 2)",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__get_console_message",
+      "mcp__chrome-devtools__fill",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__list_network_requests",
+      "Bash(npm run dev:*)",
+      "mcp__chrome-devtools__press_key",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "spinnerTipsEnabled": false
+}

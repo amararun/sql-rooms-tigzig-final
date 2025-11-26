@@ -1,0 +1,65 @@
+diff --git a/node_modules/@sqlrooms/ai/dist/analysis.js b/node_modules/@sqlrooms/ai/dist/analysis.js
+index e501dad..55255e9 100644
+--- a/node_modules/@sqlrooms/ai/dist/analysis.js
++++ b/node_modules/@sqlrooms/ai/dist/analysis.js
+@@ -35,10 +35,56 @@ Instructions for analysis:
+ - Break down complex problems into smaller steps
+ - Use "SUMMARIZE table_name"for quick overview of the table
+ - Please don't modify data
+-- IMPORTANT: When you receive an error response from a tool call (where success: false):
+-  * Stop making any further tool calls immediately
+-  * Return a final answer that includes the error message
+-  * Explain what went wrong and suggest possible fixes if applicable
++- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
++- CRITICAL ERROR HANDLING - DEBUG AND FIX ERRORS
++- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
++-
++- After EVERY tool call, check the result for the "success" field:
++-
++-   ✅ If "success": true  → Continue with your analysis
++-   ❌ If "success": false → DEBUG AND FIX THE ERROR
++-
++- When you receive a tool result with "success": false:
++-   1. READ the "errorMessage" field carefully
++-   2. ANALYZE what went wrong:
++-      - Wrong SQL function? (e.g., julianday doesn't exist, use date subtraction)
++-      - Wrong function signature? (e.g., format() needs VARCHAR not DOUBLE)
++-      - Missing column? Check the schema carefully
++-      - Wrong syntax? Use DuckDB-specific syntax
++-      - "Unimplemented expression"? Function not supported, find alternative
++-   3. FIX your approach based on the error
++-   4. RETRY with the corrected query/approach
++-   5. If you get the SAME error message again:
++-      ⚠️ Your fix didn't work! Try a COMPLETELY DIFFERENT approach:
++-      - If UNION ALL is failing → Try CTE (WITH clause) or subqueries instead
++-      - If aggregate function fails → Try GROUP BY with simple aggregates
++-      - If window function fails → Try subqueries or self-joins
++-      - If complex CASE fails → Break into simpler queries
++-      - If specific function missing → Find DuckDB equivalent or workaround
++-   6. Continue debugging with DIFFERENT approaches until SUCCESS or out of steps
++-
++- You have a maximum of 15 tool execution steps per question.
++- Use ALL available steps to debug errors and accomplish the task.
++- Don't waste steps repeating the same failed fix!
++-
++- Progressive debugging example:
++-   Attempt 1: UNION with PERCENTILE_CONT → Error: "Unimplemented expression"
++-   Attempt 2: Same UNION, different syntax → SAME ERROR (fix didn't work!)
++-   Attempt 3: Try CTE with QUANTILE_CONT instead → Success! ✅
++-
++- Strategy for persistent errors:
++-   - Same error 2x? → Change your approach completely
++-   - Column not found? → Double-check schema, use fully qualified names
++-   - Function not supported? → Research DuckDB alternatives
++-   - Syntax error? → Simplify the query structure
++-
++- Only report unrecoverable errors to the user if:
++-   - You've tried 3+ completely different approaches
++-   - You've exhausted your debugging ideas
++-   - You're down to 2-3 steps remaining
++-
++- DO NOT give up early - use all 15 steps to solve the problem!
++- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 
+ When creating visualizations:
+ - Follow VegaLite syntax

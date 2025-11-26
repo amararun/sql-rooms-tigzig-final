@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/openai-proxy/:path*",
+      "destination": "/api/openai-proxy/[...path]"
+    }
+  ]
+}
+

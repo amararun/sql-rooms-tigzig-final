@@ -1,0 +1,58 @@
+diff --git a/node_modules/@sqlrooms/schema-tree/dist/nodes/BaseTreeNode.js b/node_modules/@sqlrooms/schema-tree/dist/nodes/BaseTreeNode.js
+index 37b8a0a..b9cbbe9 100644
+--- a/node_modules/@sqlrooms/schema-tree/dist/nodes/BaseTreeNode.js
++++ b/node_modules/@sqlrooms/schema-tree/dist/nodes/BaseTreeNode.js
+@@ -3,6 +3,5 @@ import { cn, Slot } from '@sqlrooms/ui';
+ export function BaseTreeNode(props) {
+     const { className, asChild, children } = props;
+     const Comp = asChild ? Slot : 'div';
+-    return (_jsx(Comp, { className: cn('hover:bg-foreground/10 h-[22px] w-full flex-grow cursor-pointer select-none rounded-sm p-[1px]', className), children: _jsx("div", { className: cn('group relative flex w-full items-center overflow-hidden', className), children: _jsx("div", { className: "absolute h-full w-full items-center", children: children }) }) }));
++    return (_jsx(Comp, { className: cn('hover:bg-foreground/10 h-[22px] w-full flex-grow cursor-pointer select-none rounded-sm p-[1px]', className), children: _jsx("div", { className: cn('group flex w-full items-center overflow-hidden', className), children: children }) }));
+ }
+\ No newline at end of file
+-//# sourceMappingURL=BaseTreeNode.js.map
+\ No newline at end of file
+diff --git a/node_modules/@sqlrooms/schema-tree/dist/nodes/BaseTreeNode.js.map b/node_modules/@sqlrooms/schema-tree/dist/nodes/BaseTreeNode.js.map
+deleted file mode 100644
+index 8715601..0000000
+--- a/node_modules/@sqlrooms/schema-tree/dist/nodes/BaseTreeNode.js.map
++++ /dev/null
+@@ -1 +0,0 @@
+-{"version":3,"file":"BaseTreeNode.js","sourceRoot":"","sources":["../../src/nodes/BaseTreeNode.tsx"],"names":[],"mappings":";AAAA,OAAO,EAAC,EAAE,EAAE,IAAI,EAAC,MAAM,cAAc,CAAC;AAGtC,MAAM,UAAU,YAAY,CAC1B,KAIE;IAEF,MAAM,EAAC,SAAS,EAAE,OAAO,EAAE,QAAQ,EAAC,GAAG,KAAK,CAAC;IAC7C,MAAM,IAAI,GAAG,OAAO,CAAC,CAAC,CAAC,IAAI,CAAC,CAAC,CAAC,KAAK,CAAC;IACpC,OAAO,CACL,KAAC,IAAI,IACH,SAAS,EAAE,EAAE,CACX,gGAAgG,EAChG,SAAS,CACV,YAED,cACE,SAAS,EAAE,EAAE,CACX,yDAAyD,EACzD,SAAS,CACV,YAED,cAAK,SAAS,EAAC,qCAAqC,YAAE,QAAQ,GAAO,GACjE,GACD,CACR,CAAC;AACJ,CAAC","sourcesContent":["import {cn, Slot} from '@sqlrooms/ui';\nimport {PropsWithChildren} from 'react';\n\nexport function BaseTreeNode<T>(\n  props: PropsWithChildren<{\n    className?: string;\n    nodeObject: T;\n    asChild?: boolean;\n  }>,\n) {\n  const {className, asChild, children} = props;\n  const Comp = asChild ? Slot : 'div';\n  return (\n    <Comp\n      className={cn(\n        'hover:bg-foreground/10 h-[22px] w-full flex-grow cursor-pointer select-none rounded-sm p-[1px]',\n        className,\n      )}\n    >\n      <div\n        className={cn(\n          'group relative flex w-full items-center overflow-hidden',\n          className,\n        )}\n      >\n        <div className=\"absolute h-full w-full items-center\">{children}</div>\n      </div>\n    </Comp>\n  );\n}\n"]}
+\ No newline at end of file
+diff --git a/node_modules/@sqlrooms/schema-tree/dist/nodes/ColumnTreeNode.js b/node_modules/@sqlrooms/schema-tree/dist/nodes/ColumnTreeNode.js
+index ecc9896..8ec174d 100644
+--- a/node_modules/@sqlrooms/schema-tree/dist/nodes/ColumnTreeNode.js
++++ b/node_modules/@sqlrooms/schema-tree/dist/nodes/ColumnTreeNode.js
+@@ -7,6 +7,6 @@ import { TreeNodeActionsMenu, TreeNodeActionsMenuItem, } from './TreeNodeActions
+ import { cn } from '@sqlrooms/ui';
+ export const ColumnTreeNode = (props) => {
+     const { className, nodeObject, additionalMenuItems } = props;
+-    return (_jsxs(BaseTreeNode, { asChild: true, className: cn(className, 'h-[18px]'), nodeObject: nodeObject, children: [_jsxs("div", { className: "flex w-full items-center space-x-2", children: [_jsx(ColumnTypeBadge, { className: "opacity-50", columnType: nodeObject.columnType, typeCategory: nodeObject.columnTypeCategory }), _jsx("span", { className: "text-xs", children: nodeObject.name })] }), _jsxs(TreeNodeActionsMenu, { children: [_jsxs(TreeNodeActionsMenuItem, { onClick: () => navigator.clipboard.writeText(nodeObject.name), children: [_jsx(CopyIcon, { width: "15px" }), "Copy column name"] }), additionalMenuItems] })] }));
++    console.log("🔍 COLUMN NODE LOADED - Font size: text-[11px]", nodeObject.columnType);
++    return (_jsxs(BaseTreeNode, { asChild: true, className: className, nodeObject: nodeObject, children: [_jsxs("div", { className: "flex w-full items-center space-x-2", children: [_jsx("span", { className: "text-[11px] w-[70px] flex-shrink-0 truncate", children: nodeObject.columnType }), _jsx("span", { className: "text-[11px]", children: nodeObject.name })] }), _jsxs(TreeNodeActionsMenu, { children: [_jsxs(TreeNodeActionsMenuItem, { onClick: () => navigator.clipboard.writeText(nodeObject.name), children: [_jsx(CopyIcon, { width: "15px" }), "Copy column name"] }), additionalMenuItems] })] }));
+ };
+\ No newline at end of file
+-//# sourceMappingURL=ColumnTreeNode.js.map
+\ No newline at end of file
+diff --git a/node_modules/@sqlrooms/schema-tree/dist/nodes/ColumnTreeNode.js.map b/node_modules/@sqlrooms/schema-tree/dist/nodes/ColumnTreeNode.js.map
+deleted file mode 100644
+index 4e3c710..0000000
+--- a/node_modules/@sqlrooms/schema-tree/dist/nodes/ColumnTreeNode.js.map
++++ /dev/null
+@@ -1 +0,0 @@
+-{"version":3,"file":"ColumnTreeNode.js","sourceRoot":"","sources":["../../src/nodes/ColumnTreeNode.tsx"],"names":[],"mappings":";AAAA,4DAA4D;AAE5D,OAAO,EAAC,eAAe,EAAC,MAAM,sBAAsB,CAAC;AAErD,OAAO,EAAC,QAAQ,EAAC,MAAM,cAAc,CAAC;AAEtC,OAAO,EAAC,YAAY,EAAC,MAAM,gBAAgB,CAAC;AAC5C,OAAO,EACL,mBAAmB,EACnB,uBAAuB,GACxB,MAAM,uBAAuB,CAAC;AAC/B,OAAO,EAAC,EAAE,EAAC,MAAM,cAAc,CAAC;AAEhC,MAAM,CAAC,MAAM,cAAc,GAItB,CAAC,KAAK,EAAE,EAAE;IACb,MAAM,EAAC,SAAS,EAAE,UAAU,EAAE,mBAAmB,EAAC,GAAG,KAAK,CAAC;IAC3D,OAAO,CACL,MAAC,YAAY,IACX,OAAO,QACP,SAAS,EAAE,EAAE,CAAC,SAAS,EAAE,UAAU,CAAC,EACpC,UAAU,EAAE,UAAU,aAEtB,eAAK,SAAS,EAAC,oCAAoC,aACjD,KAAC,eAAe,IACd,SAAS,EAAC,YAAY,EACtB,UAAU,EAAE,UAAU,CAAC,UAAU,EACjC,YAAY,EAAE,UAAU,CAAC,kBAAkB,GAC3C,EACF,eAAM,SAAS,EAAC,SAAS,YAAE,UAAU,CAAC,IAAI,GAAQ,IAC9C,EACN,MAAC,mBAAmB,eAClB,MAAC,uBAAuB,IACtB,OAAO,EAAE,GAAG,EAAE,CAAC,SAAS,CAAC,SAAS,CAAC,SAAS,CAAC,UAAU,CAAC,IAAI,CAAC,aAE7D,KAAC,QAAQ,IAAC,KAAK,EAAC,MAAM,GAAG,wBAED,EACzB,mBAAmB,IACA,IACT,CAChB,CAAC;AACJ,CAAC,CAAC","sourcesContent":["// Copyright 2022 Foursquare Labs, Inc. All Rights Reserved.\n\nimport {ColumnTypeBadge} from '@sqlrooms/data-table';\nimport {ColumnNodeObject} from '@sqlrooms/duckdb';\nimport {CopyIcon} from 'lucide-react';\nimport {FC} from 'react';\nimport {BaseTreeNode} from './BaseTreeNode';\nimport {\n  TreeNodeActionsMenu,\n  TreeNodeActionsMenuItem,\n} from './TreeNodeActionsMenu';\nimport {cn} from '@sqlrooms/ui';\n\nexport const ColumnTreeNode: FC<{\n  className?: string;\n  nodeObject: ColumnNodeObject;\n  additionalMenuItems?: React.ReactNode;\n}> = (props) => {\n  const {className, nodeObject, additionalMenuItems} = props;\n  return (\n    <BaseTreeNode\n      asChild\n      className={cn(className, 'h-[18px]')}\n      nodeObject={nodeObject}\n    >\n      <div className=\"flex w-full items-center space-x-2\">\n        <ColumnTypeBadge\n          className=\"opacity-50\"\n          columnType={nodeObject.columnType}\n          typeCategory={nodeObject.columnTypeCategory}\n        />\n        <span className=\"text-xs\">{nodeObject.name}</span>\n      </div>\n      <TreeNodeActionsMenu>\n        <TreeNodeActionsMenuItem\n          onClick={() => navigator.clipboard.writeText(nodeObject.name)}\n        >\n          <CopyIcon width=\"15px\" />\n          Copy column name\n        </TreeNodeActionsMenuItem>\n        {additionalMenuItems}\n      </TreeNodeActionsMenu>\n    </BaseTreeNode>\n  );\n};\n"]}
+\ No newline at end of file
+diff --git a/node_modules/@sqlrooms/schema-tree/dist/nodes/TableTreeNode.js b/node_modules/@sqlrooms/schema-tree/dist/nodes/TableTreeNode.js
+index 5709d0d..b43fa41 100644
+--- a/node_modules/@sqlrooms/schema-tree/dist/nodes/TableTreeNode.js
++++ b/node_modules/@sqlrooms/schema-tree/dist/nodes/TableTreeNode.js
+@@ -38,6 +38,5 @@ export const TableTreeNode = (props) => {
+         table: name,
+     });
+     const sqlQuery = `SELECT * FROM ${qualifiedTableName}`;
+-    return (_jsxs(_Fragment, { children: [_jsxs(BaseTreeNode, { asChild: true, className: className, nodeObject: nodeObject, children: [_jsxs("div", { className: "relative flex w-full items-center space-x-2", children: [isView ? (_jsx(ViewIcon, { size: "16px", className: "shrink-0 text-blue-500" })) : (_jsx(TableIcon, { size: "16px", className: "shrink-0 text-blue-500" })), _jsxs("div", { className: "flex w-full items-center justify-between gap-2", children: [_jsx("span", { className: "text-sm", children: name }), rowCount !== undefined && (_jsxs("span", { className: "text-muted-foreground/50 ml-1 whitespace-nowrap pr-5 text-xs", children: [formatCount(rowCount), " ", rowCount === 1 ? 'row' : 'rows'] }))] })] }), _jsx(TreeNodeActionsMenu, { children: renderMenuItems(nodeObject, tableModal) })] }), _jsx(DataTableModal, { title: qualifiedTableName.table, query: sqlQuery, tableModal: tableModal })] }));
++    return (_jsxs(_Fragment, { children: [_jsxs(BaseTreeNode, { asChild: true, className: className, nodeObject: nodeObject, children: [_jsxs("div", { className: "relative flex w-full items-center space-x-2", children: [isView ? (_jsx(ViewIcon, { size: "16px", className: "shrink-0 text-blue-500" })) : (_jsx(TableIcon, { size: "16px", className: "shrink-0 text-blue-500" })), _jsxs("div", { className: "flex w-full items-center justify-between gap-2 overflow-hidden", children: [_jsx("span", { className: "text-sm truncate", children: name }), rowCount !== undefined && (_jsxs("span", { className: "text-muted-foreground/50 ml-1 whitespace-nowrap pr-5 text-xs flex-shrink-0", children: [formatCount(rowCount), " ", rowCount === 1 ? 'row' : 'rows'] }))] })] }), _jsx(TreeNodeActionsMenu, { children: renderMenuItems(nodeObject, tableModal) })] }), _jsx(DataTableModal, { title: qualifiedTableName.table, query: sqlQuery, tableModal: tableModal })] }));
+ };
+-//# sourceMappingURL=TableTreeNode.js.map
+\ No newline at end of file
